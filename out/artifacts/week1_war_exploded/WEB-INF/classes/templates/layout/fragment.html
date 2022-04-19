@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 新 Bootstrap5 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+ 
+<!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+ 
+<!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div th:fragment="header">
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <!-- 您可以在屏幕宽度大于 768px 时，通过在分别使用 .nav、.nav-tabs 或 .nav、.nav-pills 的同时使用
+             class .nav-justified，让标签式或胶囊式导航菜单与父元素等宽。在更小的屏幕上，导航链接会堆叠。 -->
+             <!-- 添加.d-flex开启flex弹性布局
+             flex-wrap与.flex-nowrap来包裹子元素，使用.flex-wrap时会自动换行，而.flex-nowrap不会自动换行。.flex-warp-reverse与.flex-wrap进行相反方向上的换行 -->
+             
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="add.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <img src="/logo/zifeiwo-logo.png" class="bi me-2" height="50">
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-secondary">主页</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">博客管理</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">个人资料</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">评论</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">帮助</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">关于</a></li>
+                </ul>
+        
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                </form>
+        
+                <!-- <div class="dropdown text-end bg-light">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="img/logo.jpeg" alt="mdo" class="rounded-circle" width="32" height="32">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div> -->
+                <!-- 登陆前 -->
+                <div class="text-end">
+                    <a href="login"><button type="button" class="btn btn-outline-light me-2">登陆</button></a>
+                    <a href="register"><button type="button" class="btn btn-light">注册</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+	</div>
+	
+	<div th:fragment="footer">
+		<div class="container">
+			<footer class="py-3 my-4">
+			  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">主页</a></li>
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">个人资料</a></li>
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">个人博客</a></li>
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">帮助</a></li>
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">关于</a></li>
+			  </ul>
+			  <p class="text-center text-muted">© 2022 Copyright by GaoYU</p>
+			</footer>
+		</div>
+	</div>
+</body>
+</html>

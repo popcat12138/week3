@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: Zifeiwo
+Build-Jdk: 1.8.0_201
+Implementation-Title: week1
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.zifeiwo
+Main-Class: ${start-class}
+

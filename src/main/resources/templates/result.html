@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		添加成功！<br>
+		用户名:<span th:text="${user.userName}"></span><br>
+		用户名:<span th:text="${user.name}"></span><br>
+	</div>
+</body>
+</html>

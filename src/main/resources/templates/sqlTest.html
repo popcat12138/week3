@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div color="red">按照用户名和姓名搜索</div><br>
+	<form th:action="@{/listTest}" method="post">
+	
+	用户名：<input type="text" name="userName"><br>
+	姓名：<input type="text" name="name"><br>
+	
+	<button type="submit">添加用户</button>
+	</form>
+<br>
+<div color="red">按照用户名模糊搜索</div><br>
+	<form th:action="@{/listTest2}" method="post">
+	
+	用户名：<input type="text" name="userName"><br>
+	
+	<button type="submit">添加用户</button>
+	</form>
+<div color="red">添加文章</div><br>	
+		<form th:action="@{/addArticle}" method="post">
+	
+	用户名：<input type="text" name="userName"><br>
+	<input type="text" name="userName"><br>
+	<input type="text" name="userName"><br>
+	
+	<button type="submit">添加用户</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- 新 Bootstrap5 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+ 
+<!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+ 
+<!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <div class="text-white bg-dark">
+            <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+                <div class="row align-items-center g-lg-5 py-5">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h1 class="display-4 fw-bold lh-1 mb-3">填入正确的账号密码完成登录</h1>
+                    <p class="col-lg-10 fs-4">xxxxxxxxxxxxxx</p>
+                </div>
+                <div class="col-md-10 mx-auto col-lg-5">
+                    <form  class="p-4 p-md-5 border rounded-3 bg-light text-dark">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="请输入您的登录密码：">
+                        <label for="floatingInput">登录名</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="请输入您的登录密码：">
+                        <label for="floatingPassword">密码</label>
+                    </div>
+                    <!-- <div class="checkbox mb-3">
+                        <label>
+                        <input type="checkbox" value="remember-me">暂时还没作用，、验证码、错误提示什么的
+                        </label>
+                    </div> -->
+                    <button class="w-100 btn btn-lg btn-primary bg-dark" type="submit">登陆</button>
+                    <hr class="my-4">
+                    <small class="text-muted">忘记密码或注册账号.....</small>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

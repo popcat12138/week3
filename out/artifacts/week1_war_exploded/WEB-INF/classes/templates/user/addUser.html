@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	
+		<form th:action="@{/addUser}" method="post">
+		
+		用户名：<input type="text" name="userName"><br>
+		姓名：<input type="text" name="name"><br>
+		
+		<button type="submit">添加用户</button>
+		</form>
+	</div>
+	
+	<div>no display</div>
+</body>
+</html>

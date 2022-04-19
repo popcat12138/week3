@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>成功！</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		添加成功！<br>
+		文章ID:<span th:text="${article.articleId}"></span><br>
+		文章类型:<span th:text="${article.articleType}"></span><br>
+	</div>
+</body>
+</html>

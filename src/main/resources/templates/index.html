@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 新 Bootstrap5 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+ 
+<!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+ 
+<!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div layout:fragment="content">
+	    <div class="p-4 p-md-5 mb-4 text-white bg-dark">
+	        <div class="col-md-6 px-0">
+	          <h1 class="display-4 fst-italic">子非我，安知我</h1>
+	          <p class="lead my-3">已有xx位博主加入，xx篇博文，xx条评论，等待您的加入，分享你的精彩生活...</p>
+	          <p class="lead mb-0"><a href="#" class="text-white fw-bold">注册一个新账号...</a></p>
+	        </div>
+	    </div>
+	</div>
+</body>
+</html>
