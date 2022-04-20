@@ -1,5 +1,6 @@
 package com.gaoyu.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class UserController {
 		if(!user.getPassword().equals(password)){
 			return "user/login";
 		}
+//		HttpSession session=(HttpSession) par
 		return "result";
 	}
 
@@ -68,6 +70,19 @@ public class UserController {
 		}
 		service.addUser(user);
 		return "result";
+	}
+
+
+	/*******删除*******/
+	@GetMapping("/delete")
+	public String delete(User user) {
+		return "delete";
+	}
+
+	@PostMapping("/delete")
+	public String deletes(User user) {
+		service.deleteUser(user.getUserName());
+		return null;
 	}
 		
 	/*******列出所有用户********/

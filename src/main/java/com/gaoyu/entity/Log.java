@@ -19,7 +19,7 @@ public class Log {
 	
 	private LocalDateTime createTime=LocalDateTime.now();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	private User user;
 	
 	

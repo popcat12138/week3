@@ -27,10 +27,10 @@ public class Article {
 	
 	private LocalDateTime upDateTime;//修改时间
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private User user;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.ALL,CascadeType.MERGE})
 	private ArticleType articleType;
 	
 	public Article() {

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.gaoyu.entity.Article;
 import com.gaoyu.repository.ArticleRepository;
 
+import java.util.Optional;
+
 @Service
 public class ArticleService {
 
@@ -32,5 +34,9 @@ public class ArticleService {
 		return oldArticle;
 		
 	}
+	public Article findBlogById(int articleId){
+		return articleRepository.getById(articleId);
+	}
+
 	
 }

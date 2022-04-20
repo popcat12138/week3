@@ -18,13 +18,13 @@ public class Comment {
 	
 	private String state;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	public User master;//代表这条评论的发起者
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	public User slave;//代表这条评论回复的是谁
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	public Article article;
 
 	public Comment() {

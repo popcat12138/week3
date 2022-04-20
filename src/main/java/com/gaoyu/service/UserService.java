@@ -27,6 +27,9 @@ public class UserService {
 	}
 
 
+	public void deleteUser(String userName){
+		userRepository.deleteById(userName);
+	}
 
 	//自定义，查询用户名包含x和姓名以y开头的User
 	public List<User> findTest(String userName,String name){

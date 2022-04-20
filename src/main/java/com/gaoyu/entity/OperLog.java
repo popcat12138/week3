@@ -14,11 +14,11 @@ public class OperLog {
 	
 	private LocalDateTime createTime;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	public User operator;
+	@ManyToOne()
+	private User operator;
 
-	@ManyToOne(cascade =CascadeType.ALL)
-	public User user;
+	@ManyToOne()
+	private User user;
 	
 
 	public User getUser() {

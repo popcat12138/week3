@@ -1,10 +1,6 @@
 package com.gaoyu.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 @Entity
@@ -14,8 +10,8 @@ public class ArticleType {
 	@Size(min=1,max=15,message = "文章类型长度在1~15之间")
 	@Column(length=30)
 	private String blogtype;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 
