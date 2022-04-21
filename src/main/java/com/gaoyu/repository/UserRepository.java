@@ -16,5 +16,17 @@ public interface UserRepository extends JpaRepository<User, String> {
 //	@Query(value = "select u from User u where u.userName like %:userName%")
 //	List<User> findByUserName(@Param("userName") String userName);
 
+	//登录验证
+	User findByUserNameAndPassword(String userName,String password);
+
+
+	//判断是否存在此用户
+	Boolean existsUserByUserName(String userName);
+
+	//按用户名查找
+	User findByUserName(String userName);
+
+	//按用户名删除
+	Boolean deleteUserByUserName(String userName);
 
 }

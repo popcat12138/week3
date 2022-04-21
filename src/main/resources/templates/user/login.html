@@ -26,20 +26,21 @@
                     <p class="col-lg-10 fs-4">xxxxxxxxxxxxxx</p>
                 </div>
                 <div class="col-md-10 mx-auto col-lg-5">
-                    <form  class="p-4 p-md-5 border rounded-3 bg-light text-dark">
+                    <form  class="p-4 p-md-5 border rounded-3 bg-light text-dark" th:action="@{/login_verify}" method="post">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="请输入您的登录密码：">
-                        <label for="floatingInput">登录名</label>
+                        <input type="text" class="form-control" th:field="${user.userName}" placeholder="请输入您的登录密码：">
+                        <label>登录名</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="请输入您的登录密码：">
-                        <label for="floatingPassword">密码</label>
+                        <input type="password" class="form-control" th:field="${user.password}" placeholder="请输入您的登录密码：">
+                        <label>密码</label>
                     </div>
                     <!-- <div class="checkbox mb-3">
                         <label>
                         <input type="checkbox" value="remember-me">暂时还没作用，、验证码、错误提示什么的
                         </label>
                     </div> -->
+                    <span class="text-center text-dark" th:text="${error}"> </span>
                     <button class="w-100 btn btn-lg btn-primary bg-dark" type="submit">登陆</button>
                     <hr class="my-4">
                     <small class="text-muted">忘记密码或注册账号.....</small>

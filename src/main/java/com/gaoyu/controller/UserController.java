@@ -17,32 +17,43 @@ import com.gaoyu.service.UserService;
 @Controller
 public class UserController {
 	@Autowired
-	private UserService service;
+	private UserService userService;
 	
 	/*******主页*********/
 	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
+
+	@GetMapping("/main")
+	public String main(HttpSession session){
+		User user=(User) session.getAttribute("user");
+		System.out.println(user.getPassword()+"kdkkdkdkd");
+		return "index";
+	}
 	
 	/***********登陆*******/
 	@GetMapping("/login")
-	public String login() {
+	public String login(User user) {
+
 		return "user/login";
 	}
 	@PostMapping("/login_verify")
-	public String login_verify(User user) {
-		String password=service.findbyUserName(user.getUserName()).getPassword();
-		if(!user.getPassword().equals(password)){
+	public String login_verify(User user,HttpSession session,Model model) {
+		User loginUser=userService.login_verify(user);
+		if(loginUser==null){
+			model.addAttribute("error","用户名密码错误");
 			return "user/login";
+		}else{
+			session.setAttribute("user",loginUser);
+			return "redirect:/main";
 		}
-//		HttpSession session=(HttpSession) par
-		return "result";
+
 	}
 
 	@PostMapping("/findByUserName")
 	public String find(User user){
-		service.findbyUserName(user.getUserName());
+		//userService.findbyUserName(user.getUserName());
 		return "result";
 	}
 
@@ -63,17 +74,35 @@ public class UserController {
 	public String test(User user) {
 		return "user/register";
 	}
+
 	@PostMapping("/addUser")
-	public String addUser(@Valid User user,BindingResult result) {
+	public String addUser(@Valid User user,BindingResult result,Model model) {
 		if(result.hasErrors()) {
 			return "user/register";
 		}
-		service.addUser(user);
-		return "result";
+		if(userService.isExistByUserName(user.getUserName())){
+			model.addAttribute("error","用户名已存在!");
+			return "user/register";
+		}
+		userService.addUser(user);
+		return "user/login";
+
 	}
 
+	/*********修改信息**********/
+	@GetMapping("/modifyUserInfo")
+	public String modifyUserShow(HttpSession session,User user){
+		//model.addAttribute("info",userService.findbyUserName();
 
-	/*******删除*******/
+		return "modifyInfo";
+	}
+
+	public String modifyUserInfo(User user){
+		User newUser=userService.modifyUserInfo(user);
+		return "detail";
+	}
+
+	/*******删除用户*******/
 	@GetMapping("/delete")
 	public String delete(User user) {
 		return "delete";
@@ -81,7 +110,7 @@ public class UserController {
 
 	@PostMapping("/delete")
 	public String deletes(User user) {
-		service.deleteUser(user.getUserName());
+		userService.deleteUser(user.getUserName());
 		return null;
 	}
 		
@@ -89,7 +118,7 @@ public class UserController {
 	@GetMapping("/listUser")
 	public String listUser(Model model){
 		
-		model.addAttribute("users",service.listUser());	
+		model.addAttribute("users",userService.listUser());
 		return "listUser";
 	}
 	
@@ -102,17 +131,12 @@ public class UserController {
 	
 	@PostMapping("/listTest")
 	public String listTest(Model model,String userName,String name) {
-		model.addAttribute("users",service.findTest(userName, name));
+		model.addAttribute("users",userService.findTest(userName, name));
 		return "listUser";
 		
 	}
 	
-//	@PostMapping("/listTest2")
-//	public String listTest2(Model model,String userName) {
-//		model.addAttribute("users",service.findTest2(userName));
-//		return "listUser";
-//
-//	}
+
 	
 }
 

@@ -34,6 +34,12 @@ public class ArticleService {
 		return oldArticle;
 		
 	}
+	//另一种更新方法,要使用save。当主键不改变时，不更新的值也不会设置成null
+	public Article updateTest(Article article){
+		return articleRepository.save(article);
+	}
+
+
 	public Article findBlogById(int articleId){
 		return articleRepository.getById(articleId);
 	}

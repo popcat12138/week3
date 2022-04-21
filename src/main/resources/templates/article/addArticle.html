@@ -15,7 +15,7 @@
 	<script th:src="@{/tinymce/js/tinymce/tinymce.min.js}"></script>
 	<script>
 		tinymce.init({
-			selector: '#mytextarea', //容器，可使用css选择器
+			selector: '#blogContent', //容器，可使用css选择器
 			language:'zh_CN', //调用放在langs文件夹内的语言包
 			branding:false,//水印
 			skin: "zifeiwo",//自定义皮肤
@@ -29,25 +29,22 @@
 			//选中时出现的快捷工具，与插件有依赖关系
 			quickbars_selection_toolbar: 'bold italic  | link blockquote quickimage',
 			//图片上传处理程序
-			images_upload_url: '/demo/upimg.php',
+			images_upload_url: '/upload',
 			//给返回的相对路径指定它所相对的基本路径。
 			images_upload_base_path:'/img',
 		});
-
-
-
 
 	</script>
 
 </head>
 <body>
 
-	<div layout:fragment="content">
+	<div layout:fragment="content" style="max-width: 860px" class="container">
 		<form th:action="@{/addArticle}" method="post">
-		
+
 			文章类型ID(数字)：<input type="text" name="articleId"><br>
 			文章类型名称：<input type="text" name="articleType"><br>
-			<textarea class="tinymce" id="mytextarea">
+			<textarea class="tinymce" id="blogContent">
 
 
 

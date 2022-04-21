@@ -11,15 +11,21 @@ import javax.persistence.Id;
 import javax.validation.constraints.*;
 
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class User {
+
 	@Id
+	@Column(length = 32)
+	@GeneratedValue(generator = "jpa-uuid")
+	private String userUUID;
+
 	@NotBlank(message = "用户名不能为空!")
 	@Size(min=1,max=15,message = "用户名长度在1~15之间")
-	@Column(length=50)
+	@Column(length=50,unique = true)
 	private String userName;
 
 	@NotBlank(message = "姓名不能为空!")
@@ -54,10 +60,8 @@ public class User {
 	private String email;
 	
 	@NotBlank(message = "微信号不能空!")
-	//@Pattern(regexp = "/^[a-zA-Z][a-zA-Z\\d_-]{5,19}$/" ,message = "请输入正确的微信号!")
-	//1、可使用6-20个字母、数字、下划线和减号；
-	//2、必须以字母开头（字母不区分大小写）；
-	//3、不支持设置中文。
+	@Pattern(regexp = "^([a-zA-Z])([a-zA-Z0-9_-]){5,19}$" ,message = "请输入正确的微信号!")
+	//6-20个字母、数字、下划线和减号；必须以字母开头，字母不区分大小写；不支持设置中文。
 	@Column(length=30)
 	private String weiXin;
 	
@@ -73,7 +77,13 @@ public class User {
 	
 	private LocalDateTime alterTime;
 
+	public String getUserUUID() {
+		return userUUID;
+	}
 
+	public void setUserUUID(String userUUID) {
+		this.userUUID = userUUID;
+	}
 
 	public String getUserName() {
 		return userName;
