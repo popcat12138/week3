@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    //修改信息测试
+    <form th:action="@{/modifyInfo}" method="post">
+        <input th:field="${user.userName}" placeholder="登录名修改">
+        <input th:field="${user.password}" placeholder="密码修改">
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>

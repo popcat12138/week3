@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gaoyu.entity.User;
 import com.gaoyu.service.UserService;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class UserController {
 	@Autowired
@@ -46,7 +48,7 @@ public class UserController {
 			return "user/login";
 		}else{
 			session.setAttribute("user",loginUser);
-			return "redirect:/main";
+			return "redirect:/modifyUserInfo";
 		}
 
 	}
@@ -57,12 +59,6 @@ public class UserController {
 		return "result";
 	}
 
-
-	//	@PostMapping("/login")
-//	public String login_verify(User user){
-//		//if()
-//	}
-//
 	/*******简单添加用户*********/
 	@GetMapping("/addUser")
 	public String addUser() {
@@ -91,18 +87,31 @@ public class UserController {
 
 	/*********修改信息**********/
 	@GetMapping("/modifyUserInfo")
-	public String modifyUserShow(HttpSession session,User user){
-		//model.addAttribute("info",userService.findbyUserName();
+	public String modifyUserShow(HttpSession session,Model model){
 
-		return "modifyInfo";
+		model.addAttribute("user",(User)session.getAttribute("user"));
+
+		return "user/modifyInfo";
+	}
+	@PostMapping("/modifyInfo")
+	public String modifyUserInfo(HttpSession session,User user){
+		String UUID=((User)session.getAttribute("user")).getUserUUID();
+
+		User newUser=userService.modifyUserInfo(user,UUID);
+		//更新session
+		session.setAttribute("user",newUser);
+
+		return "redirect:/showUserInfo";
 	}
 
-	public String modifyUserInfo(User user){
-		User newUser=userService.modifyUserInfo(user);
-		return "detail";
+	@GetMapping("/showUserInfo")
+	public String showUserInfo(HttpSession session,Model model){
+		model.addAttribute("user",(User)session.getAttribute("user"));
+		return "user/showUserInfo";
 	}
 
-	/*******删除用户*******/
+
+	/*******删除用户,用不着*******/
 	@GetMapping("/delete")
 	public String delete(User user) {
 		return "delete";

@@ -13,6 +13,7 @@
 <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
 
 	<script th:src="@{/tinymce/js/tinymce/tinymce.min.js}"></script>
+	<script th:src="@{/jquery/jquery-3.5.1.js}"></script>
 	<script>
 		tinymce.init({
 			selector: '#blogContent', //容器，可使用css选择器
@@ -29,9 +30,8 @@
 			//选中时出现的快捷工具，与插件有依赖关系
 			quickbars_selection_toolbar: 'bold italic  | link blockquote quickimage',
 			//图片上传处理程序
-			images_upload_url: '/upload',
+			images_upload_url: '/uploadImage',
 			//给返回的相对路径指定它所相对的基本路径。
-			images_upload_base_path:'/img',
 		});
 
 	</script>
