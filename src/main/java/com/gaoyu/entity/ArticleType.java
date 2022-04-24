@@ -6,12 +6,15 @@ import javax.validation.constraints.Size;
 @Entity
 public class ArticleType {
 	@Id
+	@GeneratedValue
+	private int articleTypeId;
+
 	@NotBlank(message = "文章类型不能为空!")
 	@Size(min=1,max=15,message = "文章类型长度在1~15之间")
 	@Column(length=30)
-	private String blogtype;
+	private String articleTypeName;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	private User user;
 	
 
@@ -24,16 +27,21 @@ public class ArticleType {
 		this.user = user;
 	}
 
-
-	public String getBlogtype() {
-		return blogtype;
+	public int getArticleTypeId() {
+		return articleTypeId;
 	}
 
-
-	public void setBlogtype(String blogtype) {
-		this.blogtype = blogtype;
+	public void setArticleTypeId(int articleTypeId) {
+		this.articleTypeId = articleTypeId;
 	}
 
+	public String getArticleTypeName() {
+		return articleTypeName;
+	}
+
+	public void setArticleTypeName(String articleTypeName) {
+		this.articleTypeName = articleTypeName;
+	}
 
 	public ArticleType() {
 		// TODO Auto-generated constructor stub

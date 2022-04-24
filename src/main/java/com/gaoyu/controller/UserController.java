@@ -48,6 +48,7 @@ public class UserController {
 			return "user/login";
 		}else{
 			session.setAttribute("user",loginUser);
+
 			return "redirect:/modifyUserInfo";
 		}
 

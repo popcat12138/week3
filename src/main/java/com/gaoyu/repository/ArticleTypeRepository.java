@@ -6,4 +6,5 @@ import com.gaoyu.entity.ArticleType;
 
 public interface ArticleTypeRepository extends JpaRepository<ArticleType,Integer > {
 
+
 }
