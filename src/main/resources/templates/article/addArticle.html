@@ -42,9 +42,9 @@
 	<div layout:fragment="content" style="max-width: 860px" class="container">
 		<form th:action="@{/addArticle}" method="post">
 
-			文章类型ID(数字)：<input type="text" name="articleId"><br>
-			文章类型名称：<input type="text" name="articleType"><br>
-			<textarea class="tinymce" id="blogContent">
+			文章类型名称：<input type="text" th:field="${article.articleType}"><br>
+			标题：<input type="text" th:field="${article.articleTitle}">
+			<textarea class="tinymce" th:field="${article.content}">
 
 
 

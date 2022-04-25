@@ -53,6 +53,13 @@ public class UserController {
 		}
 
 	}
+	/*********注销**********/
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "success";
+	}
+
 
 	@PostMapping("/findByUserName")
 	public String find(User user){

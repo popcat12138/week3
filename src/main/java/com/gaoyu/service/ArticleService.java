@@ -40,7 +40,7 @@ public class ArticleService {
 	}
 
 
-	public Article findBlogById(int articleId){
+	public Article findArticleById(int articleId){
 		return articleRepository.getById(articleId);
 	}
 
