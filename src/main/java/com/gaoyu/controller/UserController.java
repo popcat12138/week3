@@ -23,13 +23,14 @@ public class UserController {
 	
 	/*******主页*********/
 	@GetMapping("/")
-	public String index() {
-		return "index";
+	public String index(User user,HttpSession session) {
+		session.getAttribute("user");
+	    return "index";
 	}
 
 	@GetMapping("/main")
 	public String main(HttpSession session){
-		User user=(User) session.getAttribute("user");
+		User user=(User) session.getAttribute("sessionUser");
 		System.out.println(user.getPassword()+"kdkkdkdkd");
 		return "index";
 	}
@@ -47,7 +48,7 @@ public class UserController {
 			model.addAttribute("error","用户名密码错误");
 			return "user/login";
 		}else{
-			session.setAttribute("user",loginUser);
+			session.setAttribute("sessionUser",loginUser);
 
 			return "redirect:/modifyUserInfo";
 		}
@@ -97,13 +98,13 @@ public class UserController {
 	@GetMapping("/modifyUserInfo")
 	public String modifyUserShow(HttpSession session,Model model){
 
-		model.addAttribute("user",(User)session.getAttribute("user"));
+		model.addAttribute("user",(User)session.getAttribute("SessionUser"));
 
 		return "user/modifyInfo";
 	}
 	@PostMapping("/modifyInfo")
 	public String modifyUserInfo(HttpSession session,User user){
-		String UUID=((User)session.getAttribute("user")).getUserUUID();
+		String UUID=((User)session.getAttribute("SessionUser")).getUserUUID();
 
 		User newUser=userService.modifyUserInfo(user,UUID);
 		//更新session
@@ -114,7 +115,7 @@ public class UserController {
 
 	@GetMapping("/showUserInfo")
 	public String showUserInfo(HttpSession session,Model model){
-		model.addAttribute("user",(User)session.getAttribute("user"));
+		model.addAttribute("user",(User)session.getAttribute("SessionUser"));
 		return "user/showUserInfo";
 	}
 

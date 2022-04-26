@@ -25,7 +25,7 @@ public class Article {
 	
 	private LocalDateTime createTime=LocalDateTime.now();//创建时间
 	
-	private LocalDateTime upDateTime;//修改时间
+	private LocalDateTime updateTime;//修改时间
 	
 	@ManyToOne()
 	private User user;
@@ -53,12 +53,12 @@ public class Article {
 		this.createTime = createTime;
 	}
 
-	public LocalDateTime getUpDateTime() {
-		return upDateTime;
+	public LocalDateTime getUpdateTime() {
+		return updateTime;
 	}
 
-	public void setUpDateTime(LocalDateTime upDateTime) {
-		this.upDateTime = upDateTime;
+	public void setUpdateTime(LocalDateTime updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public User getUser() {
