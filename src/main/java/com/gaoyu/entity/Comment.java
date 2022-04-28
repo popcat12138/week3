@@ -18,14 +18,14 @@ public class Comment {
 	
 	private String state;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	public User master;//代表这条评论的发起者
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	public User slave;//代表这条评论回复的是谁
 
-	@ManyToOne()
-	public Article article;
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
+	public Article article;//博客ID
 
 	public Comment() {
 		// TODO Auto-generated constructor stub

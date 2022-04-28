@@ -19,7 +19,7 @@ public class Log {
 	
 	private LocalDateTime createTime=LocalDateTime.now();
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	private User user;
 	
 	

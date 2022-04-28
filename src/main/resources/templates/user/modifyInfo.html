@@ -1,15 +1,68 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    //修改信息测试
-    <form th:action="@{/modifyInfo}" method="post">
-        <input th:field="${user.userName}" placeholder="登录名修改">
-        <input th:field="${user.password}" placeholder="密码修改">
-        <button type="submit">提交</button>
-    </form>
+    <div layout:fragment="content" class="container pt-5 p-3" style="max-width: 530px;">
+        <form th:action="@{/modifyInfo}" method="post">
+            <div class="mb-3 mt-3">
+                <label class="form-label">登录名:</label>
+                <input type="text" class="form-control" placeholder="输入你的登录名" th:field="${user.userName}">
+                <span th:errors="${user.userName}"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">姓名:</label>
+                <input type="text" class="form-control" placeholder="输入您的姓名" th:field="${user.name}">
+                <span th:errors="${user.name}"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label col-1">姓别:</label>
+                <label class="radio-inline col-2"><input type="radio" th:field="${user.sex}" value="男">男</label>
+                <label class="radio-inline"><input type="radio" th:field="${user.sex}" value="女">女</label>
+                <span th:errors="${user.sex}"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">出生年月:</label>
+                <input type="date" class="form-control" placeholder="2000-01-01" th:field="${user.birthday}">
+                <span th:errors="${user.birthday}"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">电话号码:</label>
+                <input type="number" class="form-control" placeholder="电话号码" th:field="${user.tel}">
+                <span th:errors="${user.tel}"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">电子邮箱:</label>
+                <input type="email" class="form-control" placeholder="Enter email" th:field="${user.email}">
+                <span th:errors="${user.email}"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">微信:</label>
+                <input type="text" class="form-control" placeholder="weixin" th:field="${user.weiXin}">
+                <span th:errors="${user.weiXin}"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">个性签名:</label>
+                <textarea type="text" class="form-control" placeholder="Enter password" th:field="${user.myWords}"></textarea>
+                <span th:errors="${user.myWords}"></span>
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-center">
+                <button type="submit" class="w-75 btn btn-primary bg-dark">修改信息</button>
+                <button class="w-25 btn btn-primary bg-white text-black"><a href="/showUserInfo">放弃修改</a></button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -19,7 +19,7 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="add.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img th:src="@{/logo/zifeiwo-logo.png}" class="bi me-2" height="50">
+                    <img th:src="@{/logo/zifeiwo-logo.png}" class="bi me-2" height="40">
                 </a>
         
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -32,10 +32,10 @@
                 </ul>
         
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                    <input type="search" class="form-control form-control-dark" placeholder="按标题查找..." aria-label="Search">
                 </form>
         <!--thymeleaf的条件判断，使用th:if或th:unless，当if成立时才会显示,unless相反-->
-                 <div class="dropdown text-end bg-light" th:if="${session.userName!=null}">
+                 <div class="dropdown text-end bg-light" th:if="${session.loginUserName!=null}">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="img/logo.jpeg" alt="mdo" class="rounded-circle" width="32" height="32">
                     </a>
@@ -44,11 +44,11 @@
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" href="/logout">注销</a></li>
                     </ul>
                 </div>
                 <!-- 登陆前 -->
-                <div class="text-end" th:if="${session.userName==null}">
+                <div class="text-end" th:if="${session.loginUserName==null}">
                     <a href="login"><button type="button" class="btn btn-outline-light me-2">登陆</button></a>
                     <a href="register"><button type="button" class="btn btn-light">注册</button></a>
                 </div>

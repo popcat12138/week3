@@ -14,10 +14,10 @@ public class OperLog {
 	
 	private LocalDateTime createTime;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	private User operator;
 
-	@ManyToOne()
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	private User user;
 	
 

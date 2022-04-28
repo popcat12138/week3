@@ -3,6 +3,8 @@ package com.gaoyu.controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.gaoyu.entity.OperLog;
+import com.gaoyu.service.OperLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +22,12 @@ import java.time.LocalDateTime;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OperLogService operLogService;
 	
 	/*******主页*********/
 	@GetMapping("/")
 	public String index(User user,HttpSession session) {
-		session.getAttribute("user");
 	    return "index";
 	}
 
@@ -48,7 +51,10 @@ public class UserController {
 			model.addAttribute("error","用户名密码错误");
 			return "user/login";
 		}else{
+			//一个是存储sessionUser方便直接用。
+			// 一个是方便导航栏的if切换，因为如果写成session.sessionUser.userName会找不到user对象报错
 			session.setAttribute("sessionUser",loginUser);
+			session.setAttribute("loginUserName",loginUser.getUserName());
 
 			return "redirect:/modifyUserInfo";
 		}
@@ -98,24 +104,29 @@ public class UserController {
 	@GetMapping("/modifyUserInfo")
 	public String modifyUserShow(HttpSession session,Model model){
 
-		model.addAttribute("user",(User)session.getAttribute("SessionUser"));
+		model.addAttribute("user",(User)session.getAttribute("sessionUser"));
 
 		return "user/modifyInfo";
 	}
 	@PostMapping("/modifyInfo")
-	public String modifyUserInfo(HttpSession session,User user){
-		String UUID=((User)session.getAttribute("SessionUser")).getUserUUID();
+	public String modifyUserInfo(HttpSession session,@Valid User user,BindingResult result){
+
+		if(result.hasErrors()) {
+			return "user/modifyInfo";
+		}
+		String UUID=((User)session.getAttribute("sessionUser")).getUserUUID();
 
 		User newUser=userService.modifyUserInfo(user,UUID);
 		//更新session
-		session.setAttribute("user",newUser);
+		session.setAttribute("sessionUser",newUser);
+		session.setAttribute("loginUserName",newUser.getUserName());
 
 		return "redirect:/showUserInfo";
 	}
 
 	@GetMapping("/showUserInfo")
 	public String showUserInfo(HttpSession session,Model model){
-		model.addAttribute("user",(User)session.getAttribute("SessionUser"));
+		model.addAttribute("user",(User)session.getAttribute("sessionUser"));
 		return "user/showUserInfo";
 	}
 

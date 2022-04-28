@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div  layout:fragment="content">
+    <table border="1">
+        <thead>
+        <th>ID号</th>
+        <th>登录名</th>
+        <th>姓名</th>
+
+        </thead>
+        <tbody>
+        <tr th:each="article:${articles}">
+            <td th:text=${article.}></td>
+            <td th:text=${user.userName}></td>
+            <td th:text=${user.name}></td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+</body>
+</html>

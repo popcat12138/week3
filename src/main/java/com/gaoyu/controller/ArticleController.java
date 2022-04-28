@@ -1,8 +1,12 @@
 package com.gaoyu.controller;
 
+import com.gaoyu.entity.ArticleType;
 import com.gaoyu.entity.User;
+import com.gaoyu.service.ArticleTypeService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -15,17 +19,20 @@ import javax.servlet.http.HttpSession;
 public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private ArticleTypeService articleTypeService;
 	
 	/********添加文章********/
 	//注解将HTTP Get/POST 映射到 特定的处理方法上,帮助简化常用的HTTP方法的映射	
 	@GetMapping("/addArticle")
-	public String addArticle(Article article) {
+	public String addArticle(Article article, Model model,HttpSession session) {
+		model.addAttribute("TypeList",articleTypeService.findAllArticleType((User) session.getAttribute("sessionUser")));
 		return "article/addArticle";
 	}
 	
 	@PostMapping("/addArticle")
 	public String addArticle(HttpSession session,Article article) {
-		article.setUser((User)session.getAttribute("user"));
+		article.setUser((User)session.getAttribute("sessionUser"));
 		articleService.addArticle(article);
 		return "success";
 				//"redirect:showArticle?articleId=";
@@ -36,6 +43,12 @@ public class ArticleController {
 		articleService.findArticleById(articleId);
 		return "showArticle";
 	}
+	@GetMapping("/listArticleByType")
+	public String listArticleByType(ArticleType articleType){
+		articleService.findArticleById(articleType.getArticleTypeId());
+		return "showArticle";
+	}
+
 	/********删除文章*******/
 	@GetMapping("/deleteArticle")
 	public String deleteArticle() {

@@ -1072,3 +1072,9 @@ insert into user (alter_time, birthday, email, enable, my_words, name, password,
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+2022-04-27 15:55:10 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ARTICLETYPE" not found; SQL statement:
+update articleType set ARTICLE_TYPE_ID =2 where ARTICLE_TYPE_ID =1 [42102-200]
+2022-04-27 16:37:58 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELECT[*] ARTICLE_TYPE  WHERE ARTICLE_TYPE_ID =1"; expected "DELETE, DROP, DECLARE, DEALLOCATE"; SQL statement:
+delect ARTICLE_TYPE  where ARTICLE_TYPE_ID =1 [42001-200]
