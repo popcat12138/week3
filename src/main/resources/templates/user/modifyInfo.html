@@ -13,41 +13,45 @@
 
 </head>
 <body>
-    <div layout:fragment="content" class="container pt-5 p-3" style="max-width: 530px;">
-        <form th:action="@{/modifyInfo}" method="post">
-            <div class="mb-3 mt-3">
+    <div layout:fragment="content" class="container pt-5 p-3" style="max-width: 600px;">
+        <form class="row g-3" th:action="@{/modifyInfo}" method="post">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupFile01">Upload</label>
+                <input type="file" class="form-control" id="inputGroupFile01">
+            </div>
+            <div class="col-md-6">
                 <label class="form-label">登录名:</label>
                 <input type="text" class="form-control" placeholder="输入你的登录名" th:field="${user.userName}">
                 <span th:errors="${user.userName}"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">姓名:</label>
                 <input type="text" class="form-control" placeholder="输入您的姓名" th:field="${user.name}">
                 <span th:errors="${user.name}"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="col-12">
                 <label class="form-label col-1">姓别:</label>
                 <label class="radio-inline col-2"><input type="radio" th:field="${user.sex}" value="男">男</label>
                 <label class="radio-inline"><input type="radio" th:field="${user.sex}" value="女">女</label>
                 <span th:errors="${user.sex}"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">出生年月:</label>
                 <input type="date" class="form-control" placeholder="2000-01-01" th:field="${user.birthday}">
                 <span th:errors="${user.birthday}"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">电话号码:</label>
                 <input type="number" class="form-control" placeholder="电话号码" th:field="${user.tel}">
                 <span th:errors="${user.tel}"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">电子邮箱:</label>
                 <input type="email" class="form-control" placeholder="Enter email" th:field="${user.email}">
                 <span th:errors="${user.email}"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-6">
                 <label class="form-label">微信:</label>
                 <input type="text" class="form-control" placeholder="weixin" th:field="${user.weiXin}">
                 <span th:errors="${user.weiXin}"></span>
@@ -60,7 +64,7 @@
 
             <div class="d-flex flex-wrap justify-content-center">
                 <button type="submit" class="w-75 btn btn-primary bg-dark">修改信息</button>
-                <button class="w-25 btn btn-primary bg-white text-black"><a href="/showUserInfo">放弃修改</a></button>
+                <button class="w-25 btn btn-primary bg-white text-black"><a class="text-decoration-none text-black" href="/showUserInfo">放弃修改</a></button>
             </div>
         </form>
     </div>

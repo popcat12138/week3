@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gaoyu.entity.Article;
 import com.gaoyu.service.ArticleService;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,19 +36,21 @@ public class ArticleController {
 	public String addArticle(HttpSession session,Article article) {
 		article.setUser((User)session.getAttribute("sessionUser"));
 		articleService.addArticle(article);
-		return "success";
+
+		return "redirect:showArticle?articleId=354";
 				//"redirect:showArticle?articleId=";
 	}
 	/*********查找文章******/
+
 	@GetMapping("/showArticle")
-	public String findArticleById(int articleId){
-		articleService.findArticleById(articleId);
-		return "showArticle";
+	public String findArticleById(int articleId,Model model){
+		model.addAttribute("article",articleService.findArticleById(articleId));
+		return "article/showArticle";
 	}
 	@GetMapping("/listArticleByType")
 	public String listArticleByType(ArticleType articleType){
 		articleService.findArticleById(articleType.getArticleTypeId());
-		return "showArticle";
+		return "article/showArticle";
 	}
 
 	/********删除文章*******/
@@ -58,18 +62,19 @@ public class ArticleController {
 	@PostMapping("/deleteArticle")
 	public String deleteArticle(int articleId) {
 		articleService.deleteArticle(articleId);
-		return "addArticle";
+		return "/addArticle";
 	}
 	/*******修改文章********/
-	@GetMapping("/updateArticle")
-	public String updateArticle() {
-		return "updateArticle";
+	@GetMapping("/modifyArticle")
+	public String modifyArticle(int articleId,Model model) {
+		model.addAttribute("article",articleService.findArticleById(articleId));
+		return "article/modifyArticle";
 	}
 	
-	@PostMapping("/updateArticle")
-	public String updateArticle(Article article) {
-		articleService.updateArticle(article);
-		return "result";
+	@PostMapping("/modifyArticle")
+	public String modifyArticle(Article article) {
+		articleService.modifyArticle(article);
+		return "article/showArticle";
 		
 	}
 	

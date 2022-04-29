@@ -19,16 +19,17 @@
     <div class="container pt-4">
         <div class="row pl-10">
             <div class="col-md-9">
-                <article class="blog-post">
-                    <h2 class="blog-post-title text-center">标题</h2>
-                    <p class="blog-post-meta text-center"><span th:field="${article.createTime}">发表时间</span><a href="#" th:field="${user.userName}">文章作者</a></p>
-<!--判断是否存在修改时间if-->
-                    <div th:if="${article.updateTime!=null}"> <br><p class="blog-post-meta"><span th:field="${article.updateTime}"></span></p></div>
+                <div class="blog-post">
+                    <h2 class="blog-post-title text-center" th:text="${article.articleTitle}">标题</h2>
+                    <p class="blog-post-meta text-center"><span th:text="${#temporals.format(article.createTime,'yyyy-MM-dd HH:mm')}">发表时间</span><span> &nbsp; BY &nbsp; </span><a href="#" th:text="${article.user?.userName}">文章作者</a></p>
+<!--判断是否存在修改时间,修改时间不为空则显示-->
+                    <span th:if="${article.updateTime!=null}" th:text="${#temporals.format(article.updateTime,'yyyy-MM-dd HH:mm')}"></span>
+                    <p class="text-center"><small>分类 : <em th:text="${article.articleType?.articleTypeName}">开心</em></small></p>
                     <hr>
                     <br>
-                    <div>文章内容</div>
-                    <span th:text="${session.sessionUser.userName}"></span>
-                </article>
+                    <div th:utext="${article.content}"></div>
+
+                </div>
 
                 <br><br><br><br><br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -38,6 +39,8 @@
                 <div class="position-sticky" style="top: 2rem;">
                     <div class="p-4 mb-3 bg-light rounded">
                         <h4 class="fst-italic">About</h4>
+                        touxiang
+                        <br><br><br><br><br><br><br><br>
                         <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
                     </div>
 

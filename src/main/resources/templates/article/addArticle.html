@@ -40,24 +40,36 @@
 <body>
 
 	<div layout:fragment="content" style="max-width: 860px" class="container pt-6">
-		<form th:action="@{/addArticle}" method="post">
-			<div class="text-center p-3">
-				标题：<input type="text" placeholder="文章标题" th:field="${article.articleTitle}">
-				文章类型名称：<input type="text" th:field="${article.articleType}"><br>
-				<select >
-
-					<option th:each="articleType:${TypeList}" th:value="${articleType.articleTypeId}" th:text="${articleType.articleTypeName}"></option>
-
-				</select>
+		<div class="d-flex flex-wrap justify-content-center">
+			<div class="d-flex align-items-center">
+				<a href="/">
+					<img src="/logo/zifeiwo-logo-dark.png" height="80">
+				</a>
 			</div>
-			<textarea class="tinymce" th:field="${article.content}">
+			<div class="d-flex align-items-center">
+				<h1 class="display-4">添加文章</h1>
+			</div>
+		</div>
+		<div>
+			<form th:action="@{/addArticle}" method="post">
+				<div class="text-center p-3">
+					标题：<input type="text" placeholder="文章标题" th:field="${article.articleTitle}"><br>
+					文章类型名称：
+					<select>
+
+						<option th:each="articleType:${TypeList}" th:value="${articleType.articleTypeId}" th:text="${articleType.articleTypeName}"></option>
+
+					</select>
+				</div>
+				<textarea class="tinymce" th:field="${article.content}">
 
 
 
-			</textarea>
-		
-		<button type="submit">添加文章类型</button>
-		</form>
+				</textarea>
+
+			<button type="submit">添加文章类型</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

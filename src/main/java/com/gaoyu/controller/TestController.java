@@ -72,5 +72,11 @@ public class TestController {
 		operLog.setLogContent("kakakak");
 		return operLogService.addOperLog(operLog);
 	}
+	@GetMapping("/testpp")
+	@ResponseBody
+	public Article findArticleById(){
+		//articleService.findArticleById(articleId);
+		return articleService.findArticleById(292);
+	}
 }
 

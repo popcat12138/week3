@@ -1,6 +1,7 @@
 package com.gaoyu.service;
 
 import com.gaoyu.entity.User;
+import com.gaoyu.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,19 +29,18 @@ public class ArticleService {
 		
 		articleRepository.deleteById(articleId);
 	}
-	
-	public Article updateArticle(Article article) {
-		Article oldArticle=articleRepository.getOne(article.getArticleId());
-		oldArticle.setArticleName(article.getArticleName());
-		oldArticle.setArticleType(article.getArticleType());
-		
-		//查询出来，不用执行save方法，就可以保存
-		return oldArticle;
-		
-	}
-	//另一种更新方法,要使用save。当主键不改变时，不更新的值也不会设置成null
-	public Article updateTest(Article article){
-		return articleRepository.save(article);
+
+	public Article modifyArticle(Article article){
+
+		Article oldArticle=articleRepository.getById(article.getArticleId());
+
+		if(oldArticle!=null){
+			UpdateUtil.copyNullProperties(article,oldArticle);
+		}
+		oldArticle.setUpdateTime(LocalDateTime.now());
+		//更新修改时间
+		articleRepository.save(oldArticle);
+		return articleRepository.getById(article.getArticleId());
 	}
 
 
@@ -59,7 +59,6 @@ public class ArticleService {
 
 	public List<Article> findLastArticle(){
 		return articleRepository.findTop30ByOrderByCreateTime();
-//		return null;
 	}
 	
 }
