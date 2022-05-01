@@ -32,6 +32,19 @@
                     <button class="button bg-dark text-white w-25 btn-outline-light">查询</button>
                 </div>
             </form>
+            <form class="row g-3 pt-2" th:action="@{/searchOperLogByDate}" method="post">
+                <div class="d-flex flex-wrap justify-content-center container" style="max-width: 660px;">
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" placeholder="选择时间" name="date1">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" placeholder="2022-05-01" name="date2">
+                    </div>
+                    <div>
+                        <button type="submit" class="button bg-dark text-white btn-outline-light">时间范围查询</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <table class="table table-hover text-center">
             <thead>
@@ -49,7 +62,7 @@
                 <th scope="row" th:text="${operLogStat.index + 1}">1</th>
                 <td th:text="${operLog.logId}">ID</td>
                 <td th:text="${operLog.logContent}">内容</td>
-                <td th:text="${operLog.createTime}">时间</td>
+                <td th:text="${#temporals.format(operLog.createTime,'yyyy-MM-dd HH:mm')}">时间</td>
                 <td th:text="${operLog.user?.userName}">被操作人</td>
                 <td th:text="${operLog.operator?.userName}">操作人</td><!--?是在operator有为空时，不会cannot be found on null,直接显示为空-->
     <!--            <td><a th:href="@{/toEdit(id=${user.id})}">edit</a></td>-->

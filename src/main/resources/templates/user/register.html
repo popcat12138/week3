@@ -28,59 +28,58 @@
 		</div>
 		
 		<div class="container mt-3" style="max-width: 530px;">
-			<form th:action="@{/addUser}" method="post">
-		
-			 <div class="mb-3 mt-3">
-				<label for="userName" class="form-label">登录名:</label>
-				<input type="text" class="form-control" placeholder="输入你的登录名" th:field="${user.userName}">
-			    <span th:errors="${user.userName}"></span>
-			  </div>
- 			  <div class="mb-3">
-				<label for="name" class="form-label">姓名:</label>
-				<input type="text" class="form-control" placeholder="输入您的姓名" th:field="${user.name}">
-				<span th:errors="${user.name}"></span>
-			  </div>
+			<form th:action="@{/addUser}" method="post" class="row g-3">
+				<div class="col-md-6">
+					<label class="form-label">登录名:</label>
+					<input type="text" class="form-control" placeholder="输入你的登录名" th:field="${user.userName}">
+					<span class="text-danger" th:errors="${user.userName}"></span>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">姓名:</label>
+					<input type="text" class="form-control" placeholder="输入您的姓名" th:field="${user.name}">
+					<span class="text-danger" th:errors="${user.name}"></span>
+				</div>
 
- 			  <div class="mb-3">
-				<label for="name" class="form-label col-1">姓别:</label>
+				<div class="col-12">
+					<label class="form-label">姓别:</label>
 					<label class="radio-inline col-2"><input type="radio" th:field="${user.sex}" value="男">男</label>
 					<label class="radio-inline"><input type="radio" th:field="${user.sex}" value="女">女</label>
-				<span th:errors="${user.sex}"></span>
-			  </div>
-			  <div class="mb-3">
-				<label for="password" class="form-label">密码:</label>
-				<input type="password" class="form-control" placeholder="输入登录密码" th:field="${user.password}">
-				<span th:errors="${user.password}"></span>
-			  </div>
-			  	 <div class="mb-3">
-				<label for="birthday" class="form-label">出生年月:</label>
-				<input type="date" class="form-control" placeholder="2000-01-01" th:field="${user.birthday}">
-				<span th:errors="${user.birthday}"></span>
-			  </div>
-			  	
-	  		  <div class="mb-3">
-				<label for="phone" class="form-label">电话号码:</label>
-				<input type="number" class="form-control" placeholder="电话号码" th:field="${user.tel}">
-				<span th:errors="${user.tel}"></span>
-			  </div>
-			  	 <div class="mb-3">
-				<label for="email" class="form-label">电子邮箱:</label>
-				<input type="email" class="form-control" placeholder="Enter email" th:field="${user.email}">
-				<span th:errors="${user.email}"></span>
-			  </div>
-			  <div class="mb-3">
-				<label for="weiXin" class="form-label">微信:</label>
-				<input type="text" class="form-control" placeholder="weixin" th:field="${user.weiXin}">
-				<span th:errors="${user.weiXin}"></span>
-			  </div>
-		      <div class="mb-3">
-				<label for="myWords" class="form-label">个性签名:</label>
-				<textarea type="text" class="form-control" placeholder="Enter password" th:field="${user.myWords}"></textarea>
-				<span th:errors="${user.myWords}"></span>
-			  </div>
-				
+					<span class="text-danger" th:errors="${user.sex}"></span>
+				</div>
+				<div class="col-12">
+					<label class="form-label">登录密码:</label>
+					<input type="password" class="form-control" placeholder="输入登录密码" th:field="${user.password}">
+					<span class="text-danger" th:errors="${user.password}"></span>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">出生年月:</label>
+					<input type="date" class="form-control" placeholder="2000-01-01" th:field="${user.birthday}">
+					<span class="text-danger" th:errors="${user.birthday}"></span>
+				</div>
+
+				<div class="col-md-6">
+					<label class="form-label">电话号码:</label>
+					<input type="number" class="form-control" placeholder="电话号码" th:field="${user.tel}">
+					<span class="text-danger" th:errors="${user.tel}"></span>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">电子邮箱:</label>
+					<input type="email" class="form-control" placeholder="电子邮箱" th:field="${user.email}">
+					<span class="text-danger" th:errors="${user.email}"></span>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">微信:</label>
+					<input type="text" class="form-control" placeholder="微信号" th:field="${user.weiXin}">
+					<span class="text-danger" th:errors="${user.weiXin}"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">个性签名:</label>
+					<textarea type="text" class="form-control" placeholder="个性签名" th:field="${user.myWords}"></textarea>
+					<span class="text-danger" th:errors="${user.myWords}"></span>
+				</div>
+
 			<div class="d-flex flex-wrap justify-content-center">
-			<button type="submit" class="w-75 btn btn-primary bg-dark">添加用户</button>		
+			<button type="submit" class="w-75 btn btn-primary bg-dark">添加用户</button>
 			<button type="reset" class="w-25 btn btn-primary bg-white text-black">重新填写</button>
 			</div>
 			</form>

@@ -1,5 +1,6 @@
 package com.gaoyu.service;
 
+import com.gaoyu.entity.ArticleType;
 import com.gaoyu.entity.User;
 import com.gaoyu.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,10 @@ public class ArticleService {
 	}
 
 	public List<Article> findLastArticle(){
-		return articleRepository.findTop30ByOrderByCreateTime();
+		return articleRepository.findTop30ByOrderByCreateTimeDesc();
+	}
+	public List<Article> findAllByType(ArticleType articleType){
+		return articleRepository.findAllByArticleTypeIs(articleType);
 	}
 	
 }

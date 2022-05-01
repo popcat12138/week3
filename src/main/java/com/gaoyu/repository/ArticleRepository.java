@@ -19,7 +19,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {//хо
 
 	List<Article> findByCreateTimeBetween (LocalDateTime date1, LocalDateTime date2);
 
-	List<Article> findTop30ByOrderByCreateTime();
+	List<Article> findTop30ByOrderByCreateTimeDesc();
 
 
 }

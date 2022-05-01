@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ll</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content" class="container" style="max-width: 830px;">
+    <div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="d-flex align-items-center">
+                <a href="/">
+                    <img src="/logo/zifeiwo-logo-dark.png" height="80">
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <h1 class="display-4">登录日志</h1>
+            </div>
+        </div>
+        <div class="pt-5 p-3">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <div class="d-flex flex-wrap justify-content-center container" style="max-width: 660px;">
+                    <input type="search" class="form-control form-control-dark w-50" placeholder="按要求查找..." aria-label="Search">
+                    <select class="w-25 form-control-dark">
+                        <option>操作人查询</option>
+                        <option>操作对象查询</option>
+                        <option>内容查询</option>
+                    </select>
+                    <button class="button bg-dark text-white w-25 btn-outline-light">查询</button>
+                </div>
+            </form>
+        </div>
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>操作人</th>
+                <th>内容</th>
+                <th>时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${logs}">
+                <th scope="row" th:text="${logStat.index + 1}">1</th>
+                <td th:text="${log.logId}">ID</td>
+                <td th:text="${log.user?.userName}">被操作人</td>
+                <td th:text="${log.logContent}">内容</td>
+                <td th:text="${#temporals.format(log.createTime,'yyyy-MM-dd HH:mm')}">时间</td>
+                <!--            <td><a th:href="@{/toEdit(id=${user.id})}">edit</a></td>-->
+                <!--            <td><a th:href="@{/delete(id=${user.id})}">delete</a></td>-->
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="modal-footer no-margin-top">
+        <ul class="pagination pull-right no-margin">
+
+            <!-- 首页 -->
+            <li>
+                <a class="page-link" th:href="'/listLog?pageNum=0'">首页</a>
+            </li>
+
+            <!-- 上一页 -->
+            <li th:if="${logs.hasPrevious()}">
+                <a class="page-link" th:href="'/listLog?pageNum=' + ${logs.previousPageable().getPageNumber()}" th:text="上一页"></a>
+            </li>
+
+            <!-- 中间页 -->
+            <li th:each="pageNum:${#numbers.sequence(0, logs.getTotalPages() - 1)}">
+                <a class="page-link" th:href="'/listLog?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne logs.pageable.getPageNumber()}"></a>
+                <a class="page-link" th:href="'/listLog?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq logs.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+            </li>
+
+            <!-- 下一页 -->
+            <li th:if="${logs.hasNext()}">
+                <a class="page-link" th:href="'/listLog?pageNum=' + ${logs.nextPageable().getPageNumber()}" th:text="下一页"></a>
+            </li>
+
+            <!-- 尾页 -->
+            <li>
+                <a class="page-link" th:href="'/listLog?pageNum=' + ${logs.getTotalPages() - 1}">尾页</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

@@ -50,4 +50,10 @@ public class ArticleTypeService {
 		articleTypeRepository.save(oldArticleType);
 		return articleTypeRepository.findAllByUserIs((User)articleType.getUser());
 	}
+	public boolean isExistTypeName(User user,ArticleType articleType){
+		return articleTypeRepository.existsArticleTypeByUserAndArticleTypeNameIs(user,articleType.getArticleTypeName());
+	}
+	public ArticleType findTypeById(int typeId){
+		return articleTypeRepository.getById(typeId);
+	}
 }

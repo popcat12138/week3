@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
@@ -14,11 +17,16 @@
 </head>
 <body>
     <div layout:fragment="content" class="container pt-5 p-3" style="max-width: 600px;">
-        <form class="row g-3" th:action="@{/modifyInfo}" method="post">
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupFile01">Upload</label>
-                <input type="file" class="form-control" id="inputGroupFile01">
+        <form class="row g-3" th:action="@{/uploadMyImage}" enctype="multipart/form-data" method="post">
+            <div class="col-md-10">
+                <div class="input-group">
+                    <label class="input-group-text">上传头像</label>
+                    <input type="file" class="form-control" name="myImg">
+                </div>
             </div>
+            <button type="submit" class="btn btn-primary bg-dark col-md-2 mb-3">上传</button>
+        </form>
+        <form class="row g-3" th:action="@{/modifyInfo}" method="post">
             <div class="col-md-6">
                 <label class="form-label">登录名:</label>
                 <input type="text" class="form-control" placeholder="输入你的登录名" th:field="${user.userName}">

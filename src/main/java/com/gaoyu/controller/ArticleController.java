@@ -14,8 +14,10 @@ import com.gaoyu.entity.Article;
 import com.gaoyu.service.ArticleService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ArticleController {
@@ -27,17 +29,23 @@ public class ArticleController {
 	/********添加文章********/
 	//注解将HTTP Get/POST 映射到 特定的处理方法上,帮助简化常用的HTTP方法的映射	
 	@GetMapping("/addArticle")
-	public String addArticle(Article article, Model model,HttpSession session) {
+	public String addArticle(Article article, Model model,HttpSession session,ArticleType articleType) {
+		if(articleTypeService.findAllArticleType((User)session.getAttribute("sessionUser")).isEmpty()){
+			return "redirect:articleManager?warning="+"请添加博客类型";
+		}
 		model.addAttribute("TypeList",articleTypeService.findAllArticleType((User) session.getAttribute("sessionUser")));
 		return "article/addArticle";
 	}
 	
 	@PostMapping("/addArticle")
-	public String addArticle(HttpSession session,Article article) {
-		article.setUser((User)session.getAttribute("sessionUser"));
+	public String addArticle(RedirectAttributes redirect, HttpSession session, Article article, ArticleType articleType) {
+		User user=(User)session.getAttribute("sessionUser");
+		article.setUser(user);
+		article.setArticleType(articleType);
 		articleService.addArticle(article);
 
-		return "redirect:showArticle?articleId=354";
+		redirect.addAttribute("warning","完成");
+		return "redirect:articleManager";
 				//"redirect:showArticle?articleId=";
 	}
 	/*********查找文章******/
@@ -76,6 +84,25 @@ public class ArticleController {
 		articleService.modifyArticle(article);
 		return "article/showArticle";
 		
+	}
+
+	@GetMapping("/listArticle")
+	public String listArticle(Article article,Model model) {
+
+		model.addAttribute("articles",articleService.findLastArticle());
+		return "article/listArticle";
+
+	}
+
+	@GetMapping("/articleManager")
+	public String articleMananger(HttpSession session,Model model,String warning,ArticleType articleType){
+		User user=(User)session.getAttribute("sessionUser");
+		List<ArticleType> articleTypeList=articleTypeService.findAllArticleType(user);
+		List<Article> articleList=articleService.findAllByUser(user);
+		model.addAttribute("articleTypeList",articleTypeList);
+		model.addAttribute("articleList",articleList);
+		model.addAttribute("warning",warning);
+		return "article/articleManager";
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.gaoyu.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +14,12 @@ import javax.validation.constraints.*;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class User {
+public class User implements UserDetails {
 
 	@Id
 	@Column(length = 32)
@@ -39,8 +42,8 @@ public class User {
 	private String sex;
 	
 	@NotBlank(message = "密码不能为空!")
-	@Size(min=8,max=30,message = "密码长度不符合要求")
-	@Column(length=30)
+	@Size(min=8,max=100,message = "密码长度不符合要求")
+	@Column(length=100)
 	private String password;
 	
 	@Past(message = "日期错误!")
@@ -72,7 +75,11 @@ public class User {
 	
 	@Column(length=10)
 	private boolean enable=true;
-	
+
+	private String imgPath="img/default.png";
+
+	private String role="普通用户";
+
 	private LocalDateTime registerTime=LocalDateTime.now();
 	
 	private LocalDateTime alterTime;
@@ -89,67 +96,41 @@ public class User {
 		return userName;
 	}
 
-
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
-
 	public LocalDate getBirthday() {
 		return birthday;
 	}
-
-
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
-
-
 	public String getTel() {
 		return tel;
 	}
-
-
 
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
 
-
-
 	public String getEmail() {
 		return email;
 	}
-
-
 
 	public void setEmail(String email) {
 		this.email = email;
@@ -227,10 +208,60 @@ public class User {
 		this.alterTime = alterTime;
 	}
 
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 
 	public User() {
 		
+	}
+
+	/*******************/
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return userName;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }

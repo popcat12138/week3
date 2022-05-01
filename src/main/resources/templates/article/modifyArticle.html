@@ -54,7 +54,7 @@
             <div class="text-center p-3">
                 标题：<input type="text" placeholder="文章标题" th:field="${article.articleTitle}">
                 文章类型名称：
-                <select >
+                <select name="articleType">
 
                     <option th:each="articleType:${TypeList}" th:value="${articleType.articleTypeId}" th:text="${articleType.articleTypeName}"></option>
 

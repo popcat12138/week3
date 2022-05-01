@@ -13,6 +13,8 @@ public class ArticleType {
 	@Size(min=1,max=15,message = "文章类型长度在1~15之间")
 	@Column(length=30)
 	private String articleTypeName;
+
+	private String enable="启用";
 //不能设置级联保存，即casadeType.persist,否则在插入时会报detached entity passed to persist错
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
 	private User user;
@@ -41,6 +43,14 @@ public class ArticleType {
 
 	public void setArticleTypeName(String articleTypeName) {
 		this.articleTypeName = articleTypeName;
+	}
+
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
 	}
 
 	public ArticleType() {

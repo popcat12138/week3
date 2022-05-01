@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div layout:fragment="content" class="container" style="max-width:1000px;">
+    <div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="d-flex align-items-center">
+                <a href="/">
+                    <img src="/logo/zifeiwo-logo-dark.png" height="80">
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <h1 class="display-4">文章管理</h1>
+            </div>
+        </div>
+        <div class="pt-5 p-3">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <div class="d-flex flex-wrap justify-content-center container" style="max-width: 660px;">
+                    <input type="text" class="form-control form-control-dark w-50" placeholder="按要求查找..." aria-label="Search">
+                    <select class="w-25 form-control-dark">
+                        <option>操作人查询</option>
+                        <option>操作对象查询</option>
+                        <option>内容查询</option>
+                    </select>
+                    <button class="button bg-dark text-white w-25 btn-outline-light">查询</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form th:action="@{/addArticleType}" method="post" class="col-12">
+                <div class="d-flex flex-wrap justify-content-center container" style="max-width: 560px;">
+                    <input type="text" th:field="${articleType.articleTypeName}" placeholder="添加文章类型" class="form-control form-control-dark w-75">
+                    <button type="submit" class="button bg-dark text-white w-25 btn-outline-light">确定</button>
+                </div>
+            </form>
+        </div>
+        <span  th:text="${warning}" class="text-danger text-center"></span>
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ID号</th>
+                <th>登录名</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="articleType:${articleTypeList}">
+                <th scope="row" th:text="${articleTypeStat.index+1}">1</th>
+                <td th:text=${articleType.articleTypeId}></td>
+                <td th:text=${articleType.articleTypeName}></td>
+                <td th:text=${articleType.enable}></td>
+
+                <td><button>等待</button><button>批评</button><button>开始看</button></td>
+            </tr>
+            </tbody>
+
+        </table>
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ID号</th>
+                <th>登录名</th>
+                <th>状态</th>
+                <th>角色</th>
+                <th>注册时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="article:${articleList}">
+                <th scope="row" th:text="${articleStat.index+1}">1</th>
+                <td th:text=${article.articleId}></td>
+                <td th:text=${article.articleTitle}></td>
+                <td th:text=${article?.articleType?.articleTypeName}></td>
+                <td th:text="${#temporals.format(article.createTime,'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(article.updateTime,'yyyy-MM-dd HH:mm')}"></td>
+                <td><button>等待</button><button>批评</button><button>开始看</button></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+<!--    <div class="modal-footer no-margin-top">-->
+<!--        <ul class="pagination pull-right no-margin">-->
+
+<!--            &lt;!&ndash; 首页 &ndash;&gt;-->
+<!--            <li>-->
+<!--                <a class="page-link" th:href="'/listUser?pageNum=0'">首页</a>-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; 上一页 &ndash;&gt;-->
+<!--            <li th:if="${users.hasPrevious()}">-->
+<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${users.previousPageable().getPageNumber()}" th:text="上一页"></a>-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; 中间页 &ndash;&gt;-->
+<!--            <li th:each="pageNum:${#numbers.sequence(0, users.getTotalPages() - 1)}">-->
+<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne users.pageable.getPageNumber()}"></a>-->
+<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq users.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; 下一页 &ndash;&gt;-->
+<!--            <li th:if="${users.hasNext()}">-->
+<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${users.nextPageable().getPageNumber()}" th:text="下一页"></a>-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; 尾页 &ndash;&gt;-->
+<!--            <li>-->
+<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${users.getTotalPages() - 1}">尾页</a>-->
+<!--            </li>-->
+
+<!--        </ul>-->
+<!--    </div>-->
+</div>
+
+<div>no display</div>
+</body>
+</html>
