@@ -16,4 +16,7 @@ public interface ArticleTypeRepository extends JpaRepository<ArticleType,Integer
     List<ArticleType> findAllByUserIs(User user);
 
     Boolean existsArticleTypeByUserAndArticleTypeNameIs(User user,String articleTypeName);
+
+    List<ArticleType> findAllByEnableAndUserIs(String enable,User user);
+
 }

@@ -22,11 +22,11 @@ public class ArticleTypeController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/articleType")
-    public String articleType(ArticleType articleType){
-
-        return "articleManager";
-    }
+//    @GetMapping("/articleType")
+//    public String articleType(ArticleType articleType){
+//
+//        return "articleManager";
+//    }
 
     @PostMapping("/addArticleType")
     public String addArticleType(RedirectAttributes redirect, HttpSession session, ArticleType articleType){
@@ -42,10 +42,10 @@ public class ArticleTypeController {
         redirect.addAttribute("warning","添加完成");
         return "redirect:articleManager";
     }
-    @GetMapping("/listArticleType")
-    public List<ArticleType> listArticle(Model model, HttpSession session){
-        return articleTypeService.findAllArticleType((User)session.getAttribute("sessionUser"));
-    }
+//    @GetMapping("/listArticleType")
+//    public List<ArticleType> listArticle(Model model, HttpSession session){
+//        return articleTypeService.findAllArticleType((User)session.getAttribute("sessionUser"));
+//    }
 
     @GetMapping("/deleteArticleType")
     public String deleteArticleType(RedirectAttributes redirect,ArticleType articleType,HttpSession session){//将外键user键设置为空来完成删除
@@ -59,13 +59,35 @@ public class ArticleTypeController {
     }
 
     @PostMapping("/modifyArticleType")
-    public String modifyArticleType(ArticleType articleType){
+    public String modifyArticleType(RedirectAttributes redirect,ArticleType articleType,HttpSession session){
+        ArticleType modify=articleTypeService.findTypeById(articleType.getArticleTypeId());
+        User user=(User)session.getAttribute("sessionUser");
+        if(!modify.getUser().equals(user)){
+            redirect.addAttribute("warning","禁止操作！");
+            return "redirect:articleManager";
+        }
+        if(articleTypeService.isExistTypeName(user,articleType)){
+            redirect.addAttribute("warning","存在相同类型名");
+            return "redirect:articleManager";
+        }
         articleTypeService.modifyArticleType(articleType);
-        return "redirect:articleManager?warning=\"+\"完成\"";
+        return "redirect:articleManager";
     }
     @GetMapping("switchEnable")
-    public String switchEable(ArticleType articleType){
-        if (articleTypeService.)
+    public String switchEnable(RedirectAttributes redirect,ArticleType articleType,HttpSession session){
+        ArticleType switchEnable=articleTypeService.findTypeById(articleType.getArticleTypeId());
+        if(!switchEnable.getUser().equals((User)session.getAttribute("sessionUser"))){
+            redirect.addAttribute("warning","禁止操作！");
+            return "redirect:articleManager";
+        }
+        if (articleType.getEnable().equals("正常")){
+            articleType.setEnable("禁用");
+        }else{
+            articleType.setEnable("正常");
+        }
+        articleTypeService.modifyArticleType(articleType);
+        redirect.addAttribute("warning","操作成功！");
+        return "redirect:articleManager";
     }
 
 }

@@ -1,8 +1,10 @@
 package com.gaoyu.controller;
 
 import com.gaoyu.entity.ArticleType;
+import com.gaoyu.entity.Comment;
 import com.gaoyu.entity.User;
 import com.gaoyu.service.ArticleTypeService;
+import com.gaoyu.service.CommentService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,15 +28,19 @@ public class ArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private ArticleTypeService articleTypeService;
+	@Autowired
+	private CommentService commentService;
 	
 	/********添加文章********/
 	//注解将HTTP Get/POST 映射到 特定的处理方法上,帮助简化常用的HTTP方法的映射	
 	@GetMapping("/addArticle")
-	public String addArticle(Article article, Model model,HttpSession session,ArticleType articleType) {
-		if(articleTypeService.findAllArticleType((User)session.getAttribute("sessionUser")).isEmpty()){
-			return "redirect:articleManager?warning="+"请添加博客类型";
+	public String addArticle(RedirectAttributes redirect,Article article, Model model,HttpSession session,ArticleType articleType) {
+	    User user=(User)session.getAttribute("sessionUser");
+		if(articleTypeService.findAllArticleType(user).isEmpty()){
+            redirect.addAttribute("warning","当前博客类型为空！");
+			return "redirect:articleManager";
 		}
-		model.addAttribute("TypeList",articleTypeService.findAllArticleType((User) session.getAttribute("sessionUser")));
+		model.addAttribute("TypeList",articleTypeService.findEnableType(user));
 		return "article/addArticle";
 	}
 	
@@ -46,13 +53,14 @@ public class ArticleController {
 
 		redirect.addAttribute("warning","完成");
 		return "redirect:articleManager";
-				//"redirect:showArticle?articleId=";
 	}
 	/*********查找文章******/
 
 	@GetMapping("/showArticle")
 	public String findArticleById(int articleId,Model model){
 		model.addAttribute("article",articleService.findArticleById(articleId));
+
+
 		return "article/showArticle";
 	}
 	@GetMapping("/listArticleByType")

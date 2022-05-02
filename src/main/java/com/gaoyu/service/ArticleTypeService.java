@@ -56,4 +56,8 @@ public class ArticleTypeService {
 	public ArticleType findTypeById(int typeId){
 		return articleTypeRepository.getById(typeId);
 	}
+
+	public List<ArticleType> findEnableType(User user){
+		return articleTypeRepository.findAllByEnableAndUserIs("正常",user);
+	}
 }

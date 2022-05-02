@@ -27,7 +27,6 @@ public class ArticleService {
 	}
 	
 	public void deleteArticle(int articleId) {
-		
 		articleRepository.deleteById(articleId);
 	}
 
