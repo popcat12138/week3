@@ -27,6 +27,9 @@ public class Comment {
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	public Article article;//博客ID
 
+//	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
+//	public Like like;
+
 	public Comment() {
 		// TODO Auto-generated constructor stub
 	}

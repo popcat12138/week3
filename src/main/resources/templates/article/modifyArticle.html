@@ -53,6 +53,10 @@
         <form th:action="@{/modifyArticle}" method="post">
             <div class="text-center p-3">
                 标题：<input type="text" placeholder="文章标题" th:field="${article.articleTitle}">
+                <br>
+                <span class="text-danger" th:errors="${article.articleTitle}"></span>
+                <small>当前类型:<span th:text=${article?.articleType?.articleTypeName}></span></small>
+                <br>
                 文章类型名称：
                 <select name="articleType">
 
@@ -64,7 +68,8 @@
 
 
 
-        </textarea>
+            </textarea>
+            <span class="text-danger" th:errors="${article.content}"></span>
 
             <button type="submit">修改文章</button>
         </form>

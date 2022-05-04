@@ -49,7 +49,8 @@ public class ArticleTypeController {
 
     @GetMapping("/deleteArticleType")
     public String deleteArticleType(RedirectAttributes redirect,ArticleType articleType,HttpSession session){//将外键user键设置为空来完成删除
-        if(articleService.findAllByType(articleType).isEmpty()){
+        User user=(User)session.getAttribute("sessionUser");
+        if(articleService.findAllByType(articleType,user,0,1).isEmpty()){
             articleTypeService.deleteArticleType(articleType);
             redirect.addAttribute("warning","删除成功！");
             return "redirect:articleManager";
@@ -76,11 +77,12 @@ public class ArticleTypeController {
     @GetMapping("switchEnable")
     public String switchEnable(RedirectAttributes redirect,ArticleType articleType,HttpSession session){
         ArticleType switchEnable=articleTypeService.findTypeById(articleType.getArticleTypeId());
-        if(!switchEnable.getUser().equals((User)session.getAttribute("sessionUser"))){
+        User user=(User)session.getAttribute("sessionUser");
+        if(!switchEnable.getUser().getUserUUID().equals(user.getUserUUID())){
             redirect.addAttribute("warning","禁止操作！");
             return "redirect:articleManager";
         }
-        if (articleType.getEnable().equals("正常")){
+        if (switchEnable.getEnable().equals("正常")){
             articleType.setEnable("禁用");
         }else{
             articleType.setEnable("正常");

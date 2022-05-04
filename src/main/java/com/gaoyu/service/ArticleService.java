@@ -4,6 +4,10 @@ import com.gaoyu.entity.ArticleType;
 import com.gaoyu.entity.User;
 import com.gaoyu.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.gaoyu.entity.Article;
@@ -48,20 +52,33 @@ public class ArticleService {
 		return articleRepository.getById(articleId);
 	}
 
-	public List<Article> findAllByUser(User user){
-		return articleRepository.findAllByUserIs(user);
+	public Page<Article> findAllByUser(User user,int pageNum,int pageSize){
+		Pageable pageable= PageRequest.of(pageNum,pageSize, Sort.by(Sort.Direction.DESC,"createTime"));
+		Page<Article> articles=articleRepository.findAllByUserIs(user,pageable);
+		return articles;
 	}
 
-	public List<Article> findAllByTime(LocalDateTime date1, LocalDateTime date2){
-
-		return articleRepository.findByCreateTimeBetween(date1,date2);
+	public Page<Article> findAllByTime(LocalDateTime date1, LocalDateTime date2,int pageNum,int pageSize){
+		Pageable pageable= PageRequest.of(pageNum,pageSize, Sort.by(Sort.Direction.DESC,"createTime"));
+		Page<Article> articles=articleRepository.findByCreateTimeBetween(date1,date2,pageable);
+		return articles;
 	}
 
-	public List<Article> findLastArticle(){
-		return articleRepository.findTop30ByOrderByCreateTimeDesc();
+	public Page<Article> findLastArticle(int pageNum,int pageSize){
+		Pageable pageable= PageRequest.of(pageNum,pageSize, Sort.by(Sort.Direction.DESC,"createTime"));
+		Page<Article> articles= articleRepository.findTop30ByOrderByCreateTimeDesc(pageable);
+		return articles;
 	}
-	public List<Article> findAllByType(ArticleType articleType){
-		return articleRepository.findAllByArticleTypeIs(articleType);
+	public Page<Article> findAllByType(ArticleType articleType,User user,int pageNum,int pageSize){
+		Pageable pageable= PageRequest.of(pageNum,pageSize, Sort.by(Sort.Direction.DESC,"createTime"));
+		Page<Article> articles=articleRepository.findAllByArticleTypeAndUserIs(articleType,user,pageable);
+	    return articles;
+	}
+
+	public Page<Article> searchAllByKey(String key,int pageNum,int pageSize){
+		Pageable pageable= PageRequest.of(pageNum,pageSize, Sort.by(Sort.Direction.DESC,"createTime"));
+		Page<Article> articles=articleRepository.findAllByArticleTitleContaining(key,pageable);
+		return articles;
 	}
 	
 }

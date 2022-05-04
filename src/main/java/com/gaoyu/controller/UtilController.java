@@ -99,7 +99,10 @@ public class UtilController {
 /************中间和tinymce上传图片一样************/
             String UUID=((User)session.getAttribute("sessionUser")).getUserUUID();
             user.setImgPath( "/img/" +realName);
-            userService.modifyUserInfo(user,UUID);
+            User newImg=userService.modifyUserInfo(user,UUID);
+
+            //更新session
+            session.setAttribute("sessionUser",newImg);
             return "redirect:/showUserInfo";
         }else {
             return "error";

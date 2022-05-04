@@ -32,7 +32,7 @@
                 <div class="d-flex flex-wrap justify-content-center container" style="max-width: 660px;">
                     <input type="text" class="form-control form-control-dark w-50" placeholder="按要求查找..." aria-label="Search">
                     <select class="w-25 form-control-dark">
-                        <option>操作人查询</option>
+                        <option>文章类型查询</option>
                         <option>操作对象查询</option>
                         <option>内容查询</option>
                     </select>
@@ -56,6 +56,7 @@
                 <th>ID号</th>
                 <th>登录名</th>
                 <th>状态</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -65,7 +66,8 @@
                 <td th:text=${articleType.articleTypeName}></td>
                 <td th:text=${articleType.enable}></td>
 
-                <td><button>等待</button><button>批评</button><button>开始看</button></td>
+                <td><button><a th:href="'deleteArticleType?articleTypeId='+${articleType.articleTypeId}">删除</a></button>
+                    <button><a th:href="'switchEnable?articleTypeId='+${articleType.articleTypeId}">切换状态</a></button></td>
             </tr>
             </tbody>
 
@@ -75,10 +77,10 @@
             <tr>
                 <th>#</th>
                 <th>ID号</th>
-                <th>登录名</th>
-                <th>状态</th>
-                <th>角色</th>
-                <th>注册时间</th>
+                <th>标题</th>
+                <th>博客类型</th>
+                <th>发表时间</th>
+                <th>修改时间</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -90,44 +92,46 @@
                 <td th:text=${article?.articleType?.articleTypeName}></td>
                 <td th:text="${#temporals.format(article.createTime,'yyyy-MM-dd HH:mm')}"></td>
                 <td th:text="${#temporals.format(article.updateTime,'yyyy-MM-dd HH:mm')}"></td>
-                <td><button>等待</button><button>批评</button><button>开始看</button></td>
+                <td><button><a th:href="'modifyArticle?articleId='+${article.articleId}">修改</a></button>
+                    <button><a th:href="'delete?articleId='+${article.articleId}">删除</a></button>
+                    <button>开始看</button></td>
             </tr>
             </tbody>
 
         </table>
     </div>
 
-<!--    <div class="modal-footer no-margin-top">-->
-<!--        <ul class="pagination pull-right no-margin">-->
+    <div class="modal-footer no-margin-top">
+        <ul class="pagination pull-right no-margin">
 
-<!--            &lt;!&ndash; 首页 &ndash;&gt;-->
-<!--            <li>-->
-<!--                <a class="page-link" th:href="'/listUser?pageNum=0'">首页</a>-->
-<!--            </li>-->
+            <!-- 首页 -->
+            <li>
+                <a class="page-link" th:href="'/articleManager?pageNum=0'">首页</a>
+            </li>
 
-<!--            &lt;!&ndash; 上一页 &ndash;&gt;-->
-<!--            <li th:if="${users.hasPrevious()}">-->
-<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${users.previousPageable().getPageNumber()}" th:text="上一页"></a>-->
-<!--            </li>-->
+            <!-- 上一页 -->
+            <li th:if="${articleList.hasPrevious()}">
+                <a class="page-link" th:href="'/articleManager?pageNum=' + ${articleList.previousPageable().getPageNumber()}" th:text="上一页"></a>
+            </li>
 
-<!--            &lt;!&ndash; 中间页 &ndash;&gt;-->
-<!--            <li th:each="pageNum:${#numbers.sequence(0, users.getTotalPages() - 1)}">-->
-<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne users.pageable.getPageNumber()}"></a>-->
-<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq users.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>-->
-<!--            </li>-->
+            <!-- 中间页 -->
+            <li th:each="pageNum:${#numbers.sequence(0, articleList.getTotalPages() - 1)}">
+                <a class="page-link" th:href="'/articleManager?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne articleList.pageable.getPageNumber()}"></a>
+                <a class="page-link" th:href="'/articleManager?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq articleList.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+            </li>
 
-<!--            &lt;!&ndash; 下一页 &ndash;&gt;-->
-<!--            <li th:if="${users.hasNext()}">-->
-<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${users.nextPageable().getPageNumber()}" th:text="下一页"></a>-->
-<!--            </li>-->
+            <!-- 下一页 -->
+            <li th:if="${articleList.hasNext()}">
+                <a class="page-link" th:href="'/articleManager?pageNum=' + ${articleList.nextPageable().getPageNumber()}" th:text="下一页"></a>
+            </li>
 
-<!--            &lt;!&ndash; 尾页 &ndash;&gt;-->
-<!--            <li>-->
-<!--                <a class="page-link" th:href="'/listUser?pageNum=' + ${users.getTotalPages() - 1}">尾页</a>-->
-<!--            </li>-->
+            <!-- 尾页 -->
+            <li>
+                <a class="page-link" th:href="'/articleManager?pageNum=' + ${articleList.getTotalPages() - 1}">尾页</a>
+            </li>
 
-<!--        </ul>-->
-<!--    </div>-->
+        </ul>
+    </div>
 </div>
 
 <div>no display</div>

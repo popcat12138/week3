@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-/********一种使用save更新字段***/
+/********一种使用save更新字段的方法***/
 public class UpdateUtil {
     /**
      * 所有为空值的属性都不copy

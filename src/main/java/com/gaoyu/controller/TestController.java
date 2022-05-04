@@ -39,37 +39,20 @@ public class TestController {
 		return "success";//article/showArticle
 	}
 
-	@GetMapping("/testo")
-	@ResponseBody
-	public List<Article> test0(User user, Article article, HttpSession session, Model model) {
-		return articleService.findLastArticle();
-	}
+//	@GetMapping("/testo")
+//	@ResponseBody
+//	public List<Article> test0(User user, Article article, HttpSession session, Model model) {
+//		return articleService.findLastArticle();
+//	}
 
 
 	@GetMapping("/testn")
 	@ResponseBody
-	public List<Article> testn(User user, Article article, HttpSession session, Model model) {
+	public String testn(User user, Article article, HttpSession session, Model model,
+							   @RequestParam(value = "pageNum", defaultValue = "0")int pageNum,
+							   @RequestParam(value = "pageSize",defaultValue = "10")int pageSize) {
 		user=(User)session.getAttribute("sessionUser");
-		return articleService.findAllByUser(user);
-	}
-	@GetMapping("/listOperLog")
-	public String ListOperLog(Model model,
-							  @RequestParam(value = "pageNum",defaultValue = "0")int pageNum,
-							  @RequestParam(value = "pageSize",defaultValue = "20")int pageSize){
-		Page<OperLog> operLogs=operLogService.getOperLogList(pageNum,pageSize);
-		Iterator<OperLog> operlog=operLogs.iterator();
-		while (operlog.hasNext()){
-			System.out.println(operlog.next().toString());
-		}
-		model.addAttribute("operLogs",operLogs);
-		return "admin/listOperLog";
-	}
-	@PostMapping("/searchOperLogByDate")
-	@ResponseBody
-	public String testii(Model model, LocalDateTime date1, LocalDateTime date2,
-	@RequestParam(value = "pageNum",defaultValue = "0")int pageNum,
-	@RequestParam(value = "pageSize",defaultValue = "20")int pageSize) {
-		Page<OperLog> operLogs=operLogService.getOperLogByDate(pageNum,pageSize,date1,date2);
+		Page<Article> articleList=articleService.findAllByUser(user,pageNum,pageSize);
 		return null;
 	}
 
@@ -88,18 +71,18 @@ public class TestController {
 		return articleService.findArticleById(292);
 	}
 
-	@GetMapping("/listLog")
-	public String ListLog(Model model,
-							  @RequestParam(value = "pageNum",defaultValue = "0")int pageNum,
-							  @RequestParam(value = "pageSize",defaultValue = "20")int pageSize){
-		Page<Log> logs=logService.
-				getLogList(pageNum,pageSize);
-		Iterator<Log> log=logs.iterator();
-		while (log.hasNext()){
-			System.out.println(log.next().toString());
-		}
-		model.addAttribute("logs",logs);
-		return "admin/listLog";
-	}
+//	@GetMapping("/listLog")
+//	public String ListLog(Model model,
+//							  @RequestParam(value = "pageNum",defaultValue = "0")int pageNum,
+//							  @RequestParam(value = "pageSize",defaultValue = "20")int pageSize){
+//		Page<Log> logs=logService.
+//				getLogList(pageNum,pageSize);
+//		Iterator<Log> log=logs.iterator();
+//		while (log.hasNext()){
+//			System.out.println(log.next().toString());
+//		}
+//		model.addAttribute("logs",logs);
+//		return "admin/listLog";
+//	}
 }
 

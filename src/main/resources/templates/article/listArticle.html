@@ -20,7 +20,7 @@
         <div class="row pl-10">
             <div class="col-md-9">
 
-                <div class="blog-post" th:each="article:${articles}">
+                <div class="blog-post" th:each="article:${articleList}">
                     <h3 class="blog-post-title text-center" th:text="${article.articleTitle}">标题</h3>
                     <p class="blog-post-meta text-center"><span th:text="${#temporals.format(article.createTime,'yyyy-MM-dd HH:mm')}">发表时间</span><span> &nbsp; BY &nbsp; </span><a href="#" th:text="${article.user?.userName}">文章作者</a></p>
                     <!--判断是否存在修改时间,修改时间不为空则显示-->
@@ -30,6 +30,37 @@
                     <br>
                     <div th:utext="${article.content}"></div>
 
+                </div>
+                <div class="modal-footer no-margin-top">
+                    <ul class="pagination pull-right no-margin">
+
+                        <!-- 首页 -->
+                        <li>
+                            <a class="page-link" th:href="'/articleManager?pageNum=0'">首页</a>
+                        </li>
+
+                        <!-- 上一页 -->
+                        <li th:if="${articleList.hasPrevious()}">
+                            <a class="page-link" th:href="'/articleManager?pageNum=' + ${articleList.previousPageable().getPageNumber()}" th:text="上一页"></a>
+                        </li>
+
+                        <!-- 中间页 -->
+                        <li th:each="pageNum:${#numbers.sequence(0, articleList.getTotalPages() - 1)}">
+                            <a class="page-link" th:href="'/articleManager?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne articleList.pageable.getPageNumber()}"></a>
+                            <a class="page-link" th:href="'/articleManager?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq articleList.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+                        </li>
+
+                        <!-- 下一页 -->
+                        <li th:if="${articleList.hasNext()}">
+                            <a class="page-link" th:href="'/articleManager?pageNum=' + ${articleList.nextPageable().getPageNumber()}" th:text="下一页"></a>
+                        </li>
+
+                        <!-- 尾页 -->
+                        <li>
+                            <a class="page-link" th:href="'/articleManager?pageNum=' + ${articleList.getTotalPages() - 1}">尾页</a>
+                        </li>
+
+                    </ul>
                 </div>
 
             </div>

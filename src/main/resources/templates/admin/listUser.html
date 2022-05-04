@@ -56,10 +56,12 @@
                     <th scope="row" th:text="${userStat.index+1}">1</th>
                     <td th:text=${user.userUUID}></td>
                     <td th:text=${user.userName}></td>
-                    <td th:text=${user.enable}></td>
-                    <td th:text=${user.role}></td>
+                    <td><button th:text=${user.enable} id="enableManager"></button></td>
+                    <td ><button th:text=${user.role}></button></td>
                     <td th:text="${#temporals.format(user.registerTime,'yyyy-MM-dd HH:mm')}"></td>
-                    <td><button>等待</button><button>批评</button><button>开始看</button></td>
+                    <td><button><a th:href="'showUserDetail?userName='+${user.userName}">显示信息</a></button>
+                        <button>修改密码</button>
+                        <button>开始看</button></td>
                 </tr>
             </tbody>
             

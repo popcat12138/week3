@@ -3,6 +3,8 @@ package com.gaoyu.repository;
 import com.gaoyu.entity.ArticleType;
 import com.gaoyu.entity.OperLog;
 import com.gaoyu.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.gaoyu.entity.Article;
@@ -13,13 +15,13 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {//实体名，主键类型
 
-	List<Article> findAllByUserIs(User user);
+	Page<Article> findAllByUserIs(User user,Pageable pageable);
 
-	List<Article> findAllByArticleTypeIs(ArticleType article);
+	Page<Article> findAllByArticleTypeAndUserIs(ArticleType articleType,User user,Pageable pageable);
 
-	List<Article> findByCreateTimeBetween (LocalDateTime date1, LocalDateTime date2);
+	Page<Article> findByCreateTimeBetween (LocalDateTime date1, LocalDateTime date2, Pageable pageable);
 
-	List<Article> findTop30ByOrderByCreateTimeDesc();
+	Page<Article> findTop30ByOrderByCreateTimeDesc(Pageable pageable);
 
-
+	Page<Article> findAllByArticleTitleContaining(String key,Pageable pageable);
 }

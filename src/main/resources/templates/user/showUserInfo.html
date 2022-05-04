@@ -1,42 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" layout:decorate="~{layout/layout}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<table border="1">
-    <thead>
-    <th>ID号</th>
-    <th>登录名</th>
-    <th>姓名</th>
-    <th>性别</th>
-    <th>密码</th>
-    <th>电话号码</th>
-    <th>电子邮件</th>
-    <th>微信号</th>
-    <th>个性签名</th>
-    <th>状态</th>
-    <th>注册时间</th>
-    <th>修改时间</th>
+<div layout:fragment="content">
+    <div class="d-flex flex-wrap justify-content-center">
+        <div class="d-flex align-items-center">
+            <a href="/">
+                <img src="/logo/zifeiwo-logo-dark.png" height="100">
+            </a>
+        </div>
+        <div class="d-flex align-items-center">
+            <h1 class="display-5">个人信息</h1>
+        </div>
+    </div>
+    <img th:src="${user.imgPath}" class="rounded-circle" height="100px" width="100px">
+    <table border="1">
 
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text=${user.userUUID}></td>
-        <td th:text=${user.userName}></td>
-        <td th:text=${user.name}></td>
-        <td th:text=${user.sex}></td>
-        <td th:text=${user.password}></td>
-        <td th:text=${user.tel}></td>
-        <td th:text=${user.email}></td>
-        <td th:text=${user.weiXin}></td>
-        <td th:text=${user.myWords}></td>
-        <td th:text=${user.enable}></td>
-        <td th:text=${user.registerTime}></td>
-        <td th:text=${user.alterTime}></td>
-
-    </tr>
-    </tbody>
+        <thead>
+            <th>登录名</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>电话号码</th>
+            <th>电子邮件</th>
+            <th>微信号</th>
+            <th>个性签名</th>
+            <th>状态</th>
+            <th>注册时间</th>
+            <th>修改时间</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text=${user.userName}></td>
+            <td th:text=${user.name}></td>
+            <td th:text=${user.sex}></td>
+            <td th:text=${user.tel}></td>
+            <td th:text=${user.email}></td>
+            <td th:text=${user.weiXin}></td>
+            <td th:text=${user.myWords}></td>
+            <td th:text=${user.enable}></td>
+            <td th:text=${user.registerTime}></td>
+            <td th:text=${user.alterTime}></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

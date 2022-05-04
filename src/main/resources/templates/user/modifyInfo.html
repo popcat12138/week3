@@ -16,8 +16,18 @@
 
 </head>
 <body>
-    <div layout:fragment="content" class="container pt-5 p-3" style="max-width: 600px;">
-        <form class="row g-3" th:action="@{/uploadMyImage}" enctype="multipart/form-data" method="post">
+    <div layout:fragment="content" class="container" style="max-width: 600px;">
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="d-flex align-items-center">
+                <a href="/">
+                    <img src="/logo/zifeiwo-logo-dark.png" height="100">
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <h1 class="display-5">个人信息修改</h1>
+            </div>
+        </div>
+        <form class="row g-3 pt-5 p-3" th:action="@{/uploadMyImage}" enctype="multipart/form-data" method="post">
             <div class="col-md-10">
                 <div class="input-group">
                     <label class="input-group-text">上传头像</label>
@@ -69,6 +79,7 @@
                 <textarea type="text" class="form-control" placeholder="Enter password" th:field="${user.myWords}"></textarea>
                 <span th:errors="${user.myWords}"></span>
             </div>
+            <input hidden type="text" th:field="${user.password}">
 
             <div class="d-flex flex-wrap justify-content-center">
                 <button type="submit" class="w-75 btn btn-primary bg-dark">修改信息</button>

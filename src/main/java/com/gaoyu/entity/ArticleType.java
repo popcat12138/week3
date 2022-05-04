@@ -14,7 +14,7 @@ public class ArticleType {
 	@Column(length=30)
 	private String articleTypeName;
 
-	private String enable="启用";
+	private String enable="正常";
 //不能设置级联保存，即casadeType.persist,否则在插入时会报detached entity passed to persist错
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
 	private User user;

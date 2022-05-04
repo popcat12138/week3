@@ -57,7 +57,11 @@ public class UserController {
 			logService.addLog(log);
 			model.addAttribute("msg","用户名密码错误");
 			return "user/login";
-		}else{
+		}if(!loginUser.isEnable()){
+			model.addAttribute("msg","您的账号被禁用");
+			return "user/login";
+		}
+		else{
 
 			//一个是存储sessionUser方便直接用。
 			// 一个是方便导航栏的if切换，因为如果写成session.sessionUser.userName会找不到user对象报错
@@ -113,7 +117,7 @@ public class UserController {
 	}
 
 	/*********修改信息**********/
-	@GetMapping("/modifyUserInfo")
+	@GetMapping("/modifyInfo")
 	public String modifyUserShow(HttpSession session,Model model){
 
 		model.addAttribute("user",(User)session.getAttribute("sessionUser"));
@@ -123,8 +127,8 @@ public class UserController {
 
 	@PostMapping("/modifyInfo")
 	public String modifyUserInfo(HttpSession session,@Valid User user,BindingResult result){
-
 		if(result.hasErrors()) {
+			System.out.println(result.getAllErrors());
 			return "user/modifyInfo";
 		}
 		String UUID=((User)session.getAttribute("sessionUser")).getUserUUID();
@@ -145,14 +149,17 @@ public class UserController {
 	@PostMapping("/modifyPassword")
 	public String modifyUserPassword(HttpSession session,@Valid User user,BindingResult result,String oldPassword){
 		User verifyUser=(User)session.getAttribute("sessionUser");
+
 		if(result.hasErrors()) {
+			System.out.println(result.getAllErrors());
+			System.out.println("sk"+oldPassword.equals(verifyUser.getPassword()));
 			return "user/modifyPassword";
 		}
+		System.out.println("sksksk"+oldPassword.equals(verifyUser.getPassword()));
 		if(!oldPassword.equals(verifyUser.getPassword())){
 			System.out.println("sksksk"+oldPassword.equals(verifyUser.getPassword()));
 			return "user/modifyPassword";
 		}
-		System.out.println("sksksk");
 		String UUID=verifyUser.getUserUUID();
 		User newPASS=userService.modifyUserInfo(user,UUID);
 		//更新session

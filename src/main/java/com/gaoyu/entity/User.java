@@ -78,7 +78,7 @@ public class User implements UserDetails {
 
 	private String imgPath="img/default.png";
 
-	private String role="普通用户";
+	private String role="管理员";
 
 	private LocalDateTime registerTime=LocalDateTime.now();
 	

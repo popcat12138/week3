@@ -1184,3 +1184,12 @@ insert into user (alter_time, birthday, email, enable, img_path, my_words, name,
 2022-05-01 14:11:06 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Value too long for column "PASSWORD VARCHAR(30)": "'{bcrypt}$2a$10$lrp9e5NLoJoGls7P9pW9oeSLjVH5S0//GswDqZk3IqT.UOu/tXzpG' (68)"; SQL statement:
 insert into user (alter_time, birthday, email, enable, img_path, my_words, name, password, register_time, role, sex, tel, user_name, wei_xin, useruuid) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-200]
+2022-05-04 20:47:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (LIKE_ID INTEGER NOT NULL, COUNTS_NUM INTEGER NOT NULL, ENABLE_LIKE BOOLEAN NOT NULL, ARTICLE_ARTICLE_ID INTEGER, USER_USERUUID VARCHAR(32), PRIMARY KEY (LIKE_ID))"; expected "identifier"; SQL statement:
+create table like (like_id integer not null, counts_num integer not null, enable_like boolean not null, article_article_id integer, user_useruuid varchar(32), primary key (like_id)) [42001-200]
+2022-05-04 20:47:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKNOGGDIBJ97YS0F5244C4QMTQE FOREIGN KEY (ARTICLE_ARTICLE_ID) REFERENCES ARTICLE"; expected "identifier"; SQL statement:
+alter table like add constraint FKnoggdibj97ys0f5244c4qmtqe foreign key (article_article_id) references article [42001-200]
+2022-05-04 20:47:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKDGCVD47YAL5USLDNQ70CCLWX8 FOREIGN KEY (USER_USERUUID) REFERENCES USER"; expected "identifier"; SQL statement:
+alter table like add constraint FKdgcvd47yal5usldnq70cclwx8 foreign key (user_useruuid) references user [42001-200]

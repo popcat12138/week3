@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
 	private UserRepository userRepository;
 	//查询某用户信息
 	public User findbyUserName(String userName){
-		return findbyUserName(userName);
+		return userRepository.findByUserName(userName);
 	}
 
 	//通过用户名查询UUID
